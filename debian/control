@@ -3,11 +3,11 @@ Section: x11
 Priority: extra
 Maintainer: Norbert Tretkowski <nobse@debian.org>
 Build-Depends: debhelper, xlibs-dev
-Standards-Version: 3.1.1
+Standards-Version: 3.6.0
 
 Package: wmsysmon
 Architecture: any
 Depends: ${shlibs:Depends}
-Description: WindowMaker dock-app for monitoring your system.
+Description: WindowMaker dock-app for monitoring your system
  wmsysmon is a dockable application for WindowMaker (and possibly
  Afterstep). It monitors Memory, Swap, Disk IO, uptime and interrupts.

@@ -1,3 +1,24 @@
+wmsysmon (0.7.7-3) unstable; urgency=low
+
+  * Manpage fixed (closes: #93475, #165944).
+  * Bumped up Standards-Version (no changes).
+  * Removed -1 diff from source package.
+  * Modified description to shut up lintian.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Tue, 12 Aug 2003 02:24:56 +0200
+
+wmsysmon (0.7.7-2) unstable; urgency=low
+
+  * Gnah... wmsysmon binary missing.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sun, 25 May 2003 11:21:21 +0100
+
+wmsysmon (0.7.7-1) unstable; urgency=low
+
+  * New upstread release (closes: #168185).
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sun, 25 May 2003 00:14:14 +0100
+
 wmsysmon (0.7.6-4.1) unstable; urgency=low
 
   * Corrected spelling error in description (closes: #124563).

@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <math.h>
+#include <sys/poll.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <sys/param.h>
@@ -37,9 +38,6 @@
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 
-#ifdef PROF
-#include <Profile/Profiler.h>
-#endif
 
 #include "wmgeneral.h"
 
@@ -49,7 +47,7 @@
 #include "wmsysmon-master-i386.xpm"
 #endif
 
-#define WMSYSMON_VERSION "0.7.6"
+#define WMSYSMON_VERSION "0.7.7"
 
 #define CHAR_WIDTH 5
 #define CHAR_HEIGHT 7
@@ -121,7 +119,7 @@ char	buf[1024];
 FILE	*statfp;
 FILE	*memfp;
 
-int	update_rate = 100000;
+int	update_rate = 50;
 
 char	*ProgName;
 
@@ -143,12 +141,6 @@ void DrawMeter(unsigned int, unsigned int, int, int);
 
 int main(int argc, char *argv[]) {
 	int	i;
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "main()", "int(int, char **)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-	TAU_PROFILE_INIT(argc, argv);
-	TAU_PROFILE_SET_NODE(0);
-#endif
 
 	/* set meter x,y pairs */
 	meter[3][0] = 108;
@@ -192,7 +184,7 @@ int main(int argc, char *argv[]) {
 				break;
 			case 'r':
 				if (argc > (i + 1)) {
-					update_rate = (atoi(argv[i + 1]) * 1000);
+					update_rate = (atoi(argv[i + 1]));
 					i++;
 				}
 				break;
@@ -210,9 +202,6 @@ int main(int argc, char *argv[]) {
 
 	wmsysmon_routine(argc, argv);
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 
 	return 0;
 }
@@ -221,21 +210,19 @@ int main(int argc, char *argv[]) {
 void wmsysmon_routine(int argc, char **argv)
 {
 	int		i;
-#ifdef PROF
-	int		x = 0;
-#endif
 	XEvent		Event;
-	int		but_stat = -1;
 	FILE		*fp;
+	int		xfd;
+	struct pollfd	pfd;
     
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "wmsysmon_routine()", "(int, char **)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	createXBMfromXPM(wmsysmon_mask_bits, wmsysmon_master_xpm, wmsysmon_mask_width, wmsysmon_mask_height);
     
-	openXwindow(argc, argv, wmsysmon_master_xpm, wmsysmon_mask_bits, wmsysmon_mask_width, wmsysmon_mask_height);
+	xfd = openXwindow(argc, argv, wmsysmon_master_xpm, wmsysmon_mask_bits, wmsysmon_mask_width, wmsysmon_mask_height);
+	if(xfd < 0) exit(1);
+
+	pfd.fd = xfd;
+	pfd.events = (POLLIN);
 
     /* init ints */
 	bzero(&_last_ints, sizeof(_last_ints));
@@ -272,22 +259,17 @@ void wmsysmon_routine(int argc, char **argv)
 		else if(strstr(buf, "intr")) intr_l = i;
 	}
 
-#ifdef PROF
-	while (x < 1000) {
-#else
 	while(1) {
-#endif
         
 		curtime = time(0);
 
-#if 1
 		DrawUptime();
 		DrawStuff();
 		DrawMem();
 		RedrawWindow();
-#endif
         
 		/* X Events */
+		poll(&pfd, 1, update_rate);
 		while (XPending(display)) {
 			XNextEvent(display, &Event);
 			switch (Event.type) {
@@ -308,25 +290,15 @@ void wmsysmon_routine(int argc, char **argv)
 #endif
 			}
 		}
-#ifdef PROF
-		x++;
-#endif
 
-		usleep(update_rate);
+/*		usleep(update_rate); */
 	}
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
 void DrawMeter(unsigned int level, unsigned int peak, int dx, int dy)
 {
 	static unsigned int	a;
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "DrawMeter()", "(int, unsigned int, int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	/* meters are on a per interruptscale, dictated by the peak, maintain
 	 * this peak outside of here, you can use a fixed peak for all ints but
@@ -350,9 +322,6 @@ void DrawMeter(unsigned int level, unsigned int peak, int dx, int dy)
 		    VBAR_H,
 		    dx,
 		    dy);
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
@@ -360,10 +329,6 @@ void DrawMeter(unsigned int level, unsigned int peak, int dx, int dy)
 void DrawBar(int sx, int sy, int w, int h, float percent, int dx, int dy)
 {
 	static int	tx;
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "DrawBar()", "(int, int, int, int, float, int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	tx = (float)((float)w * ((float)percent / (float)100.0));
 
@@ -371,18 +336,11 @@ void DrawBar(int sx, int sy, int w, int h, float percent, int dx, int dy)
 
 	copyXPMArea(sx, sy + h + 1, w - tx, h, dx + tx, dy);
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
 void DrawLite(int state, int dx, int dy)
 {
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "DrawLite()", "(int, int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	switch(state) {
 		case B_RED:
@@ -397,9 +355,6 @@ void DrawLite(int state, int dx, int dy)
 			break;
 	}
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
@@ -410,10 +365,6 @@ void DrawUptime(void)
 	static long	uptime;
     	static int	i;
 
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "DrawUptime()", "", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
     
 	uptime = curtime - start_uptime + start_time;
 
@@ -460,9 +411,6 @@ void DrawUptime(void)
 	}
 
 	first = 0;
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
@@ -492,10 +440,6 @@ void DrawStuff( void )
 	static long	intdiff;
 	static long	stage;
 	static long	*tints;
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "DrawStuff()", "", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	stage = io = iodiff = iopercent = pageins = pageouts = swapins = swapouts = 0;
 
@@ -650,46 +594,52 @@ void DrawStuff( void )
 #endif
 	} else if(int_mode == INT_METERS) {
 		for (i = 0; i < 8; i++) {
-			intdiff = ints[i] - last_ints[i];
-			int_peaks[i] = (int_peaks[i] + intdiff) >> 1;
+			if(last_ints[i]) {
+				intdiff = ints[i] - last_ints[i];
+				int_peaks[i] = (int_peaks[i] + intdiff) >> 1;
 #ifdef HI_INTS
-			DrawMeter(intdiff,
-				  int_peaks[i],
-				  VBAR_H + (i * VBAR_W) + i,
-				  43);
+				DrawMeter(intdiff,
+					  int_peaks[i],
+					  VBAR_H + (i * VBAR_W) + i,
+					  43);
 #else
-			DrawMeter(intdiff,
-				  int_peaks[i],
-				  VBAR_H + (i * VBAR_W) + i,
-				  51);
+				DrawMeter(intdiff,
+					  int_peaks[i],
+					  VBAR_H + (i * VBAR_W) + i,
+					  51);
 #endif
+			}
 		}
 
 		for (i = 8; i < 16; i++) {
-			intdiff = ints[i] - last_ints[i];
-			int_peaks[i] = (int_peaks[i] + intdiff) >> 1;
+			if(last_ints[i]) {
+				intdiff = ints[i] - last_ints[i];
+				int_peaks[i] = (int_peaks[i] + intdiff) >> 1;
 #ifdef HI_INTS
-			DrawMeter(intdiff,
-				  int_peaks[i],
-				  VBAR_H + ((i - 8) * VBAR_W) + (i - 8),
-				  48);
+				DrawMeter(intdiff,
+					  int_peaks[i],
+					  VBAR_H + ((i - 8) * VBAR_W) + (i - 8),
+					  48);
 #else
-			DrawMeter(intdiff,
-				  int_peaks[i],
-				  VBAR_H + ((i - 8) * VBAR_W) + (i - 8),
-				  56);
+				DrawMeter(intdiff,
+					  int_peaks[i],
+					  VBAR_H + ((i - 8) * VBAR_W) + (i - 8),
+					  56);
 #endif
+			}
 		}
 
 #ifdef HI_INTS
 		for (i = 16; i < 24; i++) {
-			intdiff = ints[i] - last_ints[i];
-			int_peaks[i] = (int_peaks[i] + intdiff) >> 1;
+			if(last_ints[i]) {
+				intdiff = ints[i] - last_ints[i];
+				int_peaks[i] = (int_peaks[i] + intdiff) >> 1;
 
-			DrawMeter(intdiff,
-				  int_peaks[i],
-				  VBAR_H + ((i - 16) * VBAR_W) + (i - 16),
-				  53);
+				DrawMeter(intdiff,
+					  int_peaks[i],
+					  VBAR_H + ((i - 16) * VBAR_W) + (i - 16),
+					  53);
+			}
 		}
 #endif
 	}
@@ -774,9 +724,6 @@ void DrawStuff( void )
 
 	first = 0;
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
@@ -795,10 +742,6 @@ void DrawMem(void)
 	static int 	swappercent = 0;
 	static int	i, ents;
 
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "DrawMem()", "", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	counter--;
 
@@ -855,9 +798,6 @@ void DrawMem(void)
 
 	first = 0;
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
@@ -865,10 +805,6 @@ void DrawMem(void)
 void BlitString(char *name, int x, int y)
 {
 	static int	i, c, k;
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "BlitString()", "(char *, int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	k = x;
 	for (i=0; name[i]; i++) {
@@ -885,9 +821,6 @@ void BlitString(char *name, int x, int y)
 		}
 	}
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
@@ -895,10 +828,6 @@ void BlitNum(int num, int x, int y)
 {
 	static int	newx;
 
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "BlitNum()", "(int, int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	newx = x;
 
@@ -906,9 +835,6 @@ void BlitNum(int num, int x, int y)
 
 	BlitString(buf, newx, y);
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
     
 
@@ -916,9 +842,9 @@ void usage(void)
 {
 	fprintf(stderr, "\nwmsysmon - http://www.gnugeneration.com\n");
 	fprintf(stderr, "\n-------------------\n"
-			"|[---------------]|  <--- Memory Use %\n"
-			"|[---------------]|  <--- Swap Use %\n"
-			"|[---------------]|  <--- I/O %\n"
+			"|[---------------]|  <--- Memory Use %%\n"
+			"|[---------------]|  <--- Swap Use %%\n"
+			"|[---------------]|  <--- I/O %%\n"
 			"|                 |\n"
 			"|   000:00:00     |  <--- Uptime days:hours:minutes\n"
 			"|                 |\n"
