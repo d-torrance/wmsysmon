@@ -1,13 +1,16 @@
 This package was debianized by Brian E. Ermovick talon@debian.org on
 Mon,  1 Feb 1999 01:58:40 -0600.
 
-It was downloaded from  http://www.neotokyo.org/illusion
+It was downloaded from ftp://gnugeneration.com/pub/Linux/wmsysmon.
 
-Upstream Author(s):  Dave Clark (clarkd@skynet.ca)
+Upstream Authors:  Dave Clark (clarkd@skynet.ca)
+		   Vito Caputo (swivel@gnugeneration.com)
 
 Copyright:
 
-wmsysmon is copyright (c) 1998/99 by Dave Clark
-
-wmsysmon is licensed through the GNU General Public License.
-( /usr/doc/copyright/GPL )
+wmsysmon is copyright (c) 1998/99 by Dave Clark and
+(c) 2000 by Vito Caputo.
+You are free to distribute this software under the terms of
+the GNU General Public License.
+On Debian GNU/Linux systems, the complete text of the GNU General
+Public License can be found in /usr/share/common-licenses/GPL file.

@@ -1,3 +1,57 @@
+wmsysmon (0.7.6-4.1) unstable; urgency=low
+
+  * Corrected spelling error in description (closes: #124563).
+  * Corrected Build-Depends.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sat, 16 Feb 2002 22:04:51 +0100
+
+wmsysmon (0.7.6-4) unstable; urgency=low
+
+  * Manpage added.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sun, 15 Apr 2001 16:09:21 +0100
+
+wmsysmon (0.7.6-3) unstable; urgency=low
+
+  * Corrected Build-Depends (closes: #92685).
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sat,  7 Apr 2001 18:31:44 +0100
+
+wmsysmon (0.7.6-2) unstable; urgency=low
+
+  * Linked against xlib6g 3.3.6, not 4.0.1 (closes: #74792, #74808).
+
+ -- Norbert Tretkowski <nobse@nobse.de>  Tue, 31 Oct 2000 21:35:41 +0200
+
+wmsysmon (0.7.6-1) unstable; urgency=low
+
+  * Adopted package (closes: #68140).
+  * Linked against libxpm4 (closes: #67951).
+  * Updated to Standards-Version 3.1.1.
+
+ -- Norbert Tretkowski <nobse@nobse.de>  Thu, 14 Oct 2000 15:41:34 +0200
+
+wmsysmon (0.7.6-0.1) unstable; urgency=low
+
+  * Non-Maintainer Upload. This package needs a maintainer!
+  * New upstream release.
+  * Rebuilt with a newer libxpm, the package gets the correct depends on
+    libxpm4 now (closes: #67951).
+  * Compiled with glibc 2.1.94.
+  * src/Makefile: added some variables to fix the default, hardcoded
+    installation paths. The binary now installs in /usr/bin.
+  * Many changes in the debian/ dir for the new release:
+    + added a menu entry.
+    + rules: added support for DEB_BUILD_OPTIONS debug and nostrip, fixed
+      CFLAGS.
+    + copyright: updated license location, changed download URL and added
+      the new upstream maintainer.
+    + docs: added FAQ, removed BUGS.
+    + control: added Build-Depends, updated description and upped
+      Standards-Version to 3.0.1.
+
+ -- Jordi Mallach <jordi@debian.org>  Sat, 30 Sep 2000 05:19:57 +0200
+
 wmsysmon (0.2-2) unstable; urgency=low
 
   *  Modified Initial Release.
@@ -13,8 +67,3 @@ wmsysmon (0.2-1) unstable; urgency=low
   * Initial Release.
 
  -- Brian E. Ermovick <talon@debian.org>  Mon,  1 Feb 1999 01:58:40 -0600
-
-Local variables:
-mode: debian-changelog
-add-log-mailing-address: "talon@debian.org"
-End:

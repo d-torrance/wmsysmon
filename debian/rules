@@ -6,13 +6,22 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+CFLAGS  = -Wall -O2
+INSTALL = install
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+  CFLAGS += -g
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+  INSTALL += -s
+endif
+
+
 build: build-stamp
 build-stamp:
 	dh_testdir
 
-	
 	# Add here commands to compile the package.
-	cd `pwd`/wmsysmon && $(MAKE) 
+	cd `pwd`/src && $(MAKE) CFLAGS="$(CFLAGS)"
 
 	touch build-stamp
 
@@ -22,7 +31,7 @@ clean:
 	rm -f build-stamp install-stamp
 
 	# Add here commands to clean up after the build process.
-	cd `pwd`/wmsysmon && $(MAKE) clean
+	cd `pwd`/src && $(MAKE) clean
 
 	dh_clean
 
@@ -34,7 +43,7 @@ install-stamp: build-stamp
 	dh_installdirs
 
 	# Add here commands to install the package into debian/tmp.
-	cd `pwd`/wmsysmon && $(MAKE) install DESTDIR=`pwd`/../debian/tmp
+	cd `pwd`/src && $(MAKE) DESTDIR=`pwd`/../debian/tmp prefix=/usr install
 
 	touch install-stamp
 
@@ -48,19 +57,19 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	dh_installexamples
+#	dh_installexamples
 	dh_installmenu
 #	dh_installemacsen
 #	dh_installinit
-	dh_installcron
+#	dh_installcron
 	dh_installmanpages
-	dh_undocumented wmsysmon.1x
-	dh_installchangelogs CHANGES 
-	dh_link
+#	dh_undocumented wmsysmon.1
+	dh_installchangelogs ChangeLog
+#	dh_link
 	dh_strip
 	dh_compress
 	dh_fixperms
-	dh_suidregister
+#	dh_suidregister
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol

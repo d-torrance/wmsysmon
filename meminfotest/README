@@ -1,0 +1,21 @@
+This is a program used to benchmark your /proc/meminfo, you need to time it
+using the time program (TIME(1)), simply run make to build it, then execute
+it like so:
+
+time ./test
+
+If the results are over 30s of system time, your /proc/meminfo is slow.
+On my P166MMX overclocked to 187Mhz it takes 12s system time, on a dual
+ppro 180Mhz we tested it took 1:02s (yes, thats 1 minute and 2 seconds).
+Both were running kernel 2.2.
+
+We also ran the same test on a 400Mhz celeron using both 2.2 and 2.4, on 2.2
+it took 11s, on 2.4 it took 4s.
+
+I would love to hear the results of any tests you perform using this, email
+results to me.
+
+- Vito Caputo
+  swivel@gnugeneration.com
+  GNU Generation
+  www.gnugeneration.com

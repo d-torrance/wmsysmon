@@ -1,70 +1,37 @@
-wmsysmon 0.2 beta Public Release
---------------------------------------------------------------
-Author...:	Dave Clark (clarkd@skynet.ca)
+You have downloaded wmsysmon, a small dock application for use with
+WindowMaker (www.windowmaker.org) to show system information on interrupt
+activity, memory use, swap use, and IO.  wmsysmon was originally written by
+Dave Clark, I saw room for improvement in wmsysmon and sent some updates in
+to Dave Clark, after nearly a month went by with no response I decided to
+takeover development.  Dave Clark is OK with this, it appears he is
+too overworked to keep up with everything, if you are management over Dave
+Clark give him a break :).  This program is licensed under the GNU GPL, see
+file COPYING.
 
-Homepage :      http://www.neotokyo.org
+Simply enter the 'src' directory and type 'make' to build wmsysmon, if you are
+using a SMP x86 machine or an alpha machine you may want to edit the Makefile
+and uncomment -DHI_INTS before building, this enables monitoring the 24
+interrupts available on such machines.  After building successfully, execute
+'make install' to install the binary into /usr/local/bin, root will be required
+to write the binary in /usr/local/bin, but it is not required to install the
+binary in /usr/local/bin to use wmsysmon, it may be run from anywhere in
+the filesystem, but on a multi-user system it is preferred to have it available
+for everyone to use, hence /usr/local/bin.
 
-Description
---------------------------------------------------------------
-Well, i was bored this afternoon, so i decided to code this.
+For information on running wmsysmon, execute 'wmsysmon -h' afer building (and
+installing) using the above instructions.
 
-Its a system monitor util for your wm/afterstep dock.
+I have also added some profiling output in the directory "profiles", you can
+see in these files the improvements that have been done (scientific proof)
+to wmsysmon.
 
-It monitors Memory, Swap, Disk IO, uptime and interrupts.
+The Makefile-profile makefile is used for building wmsysmon with profiling
+enabled, this requires the profiling tools to be installed and configured.
+You probably dont care about this.
 
-kinda pretty looking.
+Cheers.
 
-ok ok, everyone has been complaining about the docs (or lack thereof)
-
-here's how the applet is laid out:
-
--------------------
-|[---------------]|  <--- Memory Use %
-|[---------------]|  <--- Swap Use %
-|[---------------]|  <--- I/O %
-|                 |
-|   000:00:00     |  <--- Uptime days:hours:minutes
-|                 |
-| 01234567   WX   |  <--- 0-F are hardware interrupts 0-15
-| 89ABCDEF   YZ   |  <--- W,X are Page IN/OUT
--------------------  <--- Y,Z are Swap IN/OUT
-
-
-That should explain things a little better.  Phew.. I love asci drawings.
-
-Mail me with ideas/comments/bug reports, etc....
-
-Installing
---------------------------------------------------------------
-cd wmsysmon
-make
-make install
-
-should do it.
-
-Options
---------------------------------------------------------------
-Do a 'wmsysmon -h' to see the options...
-
-
-Files
---------------------------------------------------------------
-README		This file.
-BUGS		Things you don't want to know ;-)
-CHANGES		Description of changes.
-COPYING		GNU General Public License Version 2.
-	
-
-Bugs
---------------------------------------------------------------
-If you discover any bugs in this software, please send a 
-bugreport to clarkd@skynet.ca and describe the
-problem as detailed! as you can.
-
-
-Copyright
---------------------------------------------------------------
-wmsysmon is copyright (c) 1998/99 by Dave Clark
-
-wmsysmon is licensed through the GNU General Public License.
-Read the COPYING file for the complete GNU license.
+- Vito Caputo
+  swivel@gnugeneration.com
+  GNU Generation
+  www.gnugeneration.com

@@ -1,14 +1,13 @@
 Source: wmsysmon
 Section: x11
-Priority: optional
-Maintainer: Brian E. Ermovick <talon@debian.org>
-Standards-Version: 2.4.0.0
+Priority: extra
+Maintainer: Norbert Tretkowski <nobse@debian.org>
+Build-Depends: debhelper, xlibs-dev
+Standards-Version: 3.1.1
 
 Package: wmsysmon
 Architecture: any
 Depends: ${shlibs:Depends}
-Description: Windowmaker dock-app for monitoring your system.
- wmsysmon is a dockable application for Windowmaker (and possibly
- Afterstep).  It monitors Memory, Swap, Disk IO, uptime and interrupts.
- .
- Read /usr/doc/wmsysmon/README to see how it's laid out.
+Description: WindowMaker dock-app for monitoring your system.
+ wmsysmon is a dockable application for WindowMaker (and possibly
+ Afterstep). It monitors Memory, Swap, Disk IO, uptime and interrupts.

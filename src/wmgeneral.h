@@ -27,9 +27,11 @@ struct _rckeys2 {
 };
 
 typedef struct {
-	Pixmap			pixmap;
-	Pixmap			mask;
+	Pixmap		pixmap;
+	Pixmap		mask;
 	XpmAttributes	attributes;
+	int		dirty_x, dirty_y;
+	unsigned int	dirty_w, dirty_h;
 } XpmIcon;
 
   /*******************/
@@ -50,10 +52,11 @@ void RedrawWindow(void);
 void RedrawWindowXY(int x, int y);
 
 void createXBMfromXPM(char *, char **, int, int);
-void copyXPMArea(int, int, int, int, int, int);
-void copyXBMArea(int, int, int, int, int, int);
+void copyXPMArea(int, int, unsigned int, unsigned int, int, int);
+void copyXBMArea(int, int, unsigned int, unsigned int, int, int);
 void setMaskXY(int, int);
 
 void parse_rcfile(const char *, rckeys *);
+inline void DirtyWindow(int, int, unsigned int, unsigned int);
 
 #endif

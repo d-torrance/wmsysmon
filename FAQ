@@ -1,0 +1,7 @@
+Q: Why does wmsysmon use so much CPU time? (4-6% on some systems)
+A: On some machines, polling /proc/meminfo turns out to be an expensive
+   task, this is for the most part fixed in kernel 2.4, but still happens
+   on kernel 2.2.  We have included a test program so you may see if there
+   is such a bottleneck on your system.  For this does not happen on all
+   2.2 machines, we have also cut down the /proc/meminfo polling in 0.7.0+
+   of wmsysmon, so this should not be a problem any longer.  see: meminfotest/README
