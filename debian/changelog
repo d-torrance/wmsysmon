@@ -1,0 +1,20 @@
+wmsysmon (0.2-2) unstable; urgency=low
+
+  *  Modified Initial Release.
+
+  *  Recompiled to take advantage of talon@debian.org.  Added to
+     version number simply for those who beta-tested my original
+     (pre-maintainer) 0.2-1
+
+ -- Brian E. Ermovick <talon@debian.org>  Mon,  1 Feb 1999 02:00:00 -0600
+
+wmsysmon (0.2-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Brian E. Ermovick <talon@debian.org>  Mon,  1 Feb 1999 01:58:40 -0600
+
+Local variables:
+mode: debian-changelog
+add-log-mailing-address: "talon@debian.org"
+End:

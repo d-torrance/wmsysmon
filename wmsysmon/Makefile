@@ -22,7 +22,7 @@ clean::
 	rm -f *~
 
 install:: wmsysmon
-	cp -f wmsysmon /usr/local/bin/
-	chmod 755 /usr/local/bin/wmsysmon
-	chown root:root /usr/local/bin/wmsysmon
+	cp -f wmsysmon $(DESTDIR)/usr/X11R6/bin/
+	chmod 755 $(DESTDIR)/usr/X11R6/bin/wmsysmon
+	chown root:root $(DESTDIR)/usr/X11R6/bin/wmsysmon
 	@echo "wmsysmon Installation finished..."
