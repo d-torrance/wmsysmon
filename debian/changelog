@@ -1,3 +1,12 @@
+wmsysmon (0.7.7-3.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * src/wmsysmon.c: Add break at the end of the default label clause
+    of a switch statement to fix a build failure with GCC 4.0.
+    Applied patch from Andreas Jochens (closes: #259912).
+
+ -- Roger Leigh <rleigh@debian.org>  Sun,  4 Sep 2005 16:52:12 +0100
+
 wmsysmon (0.7.7-3) unstable; urgency=low
 
   * Manpage fixed (closes: #93475, #165944).

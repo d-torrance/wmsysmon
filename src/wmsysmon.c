@@ -288,6 +288,7 @@ void wmsysmon_routine(int argc, char **argv)
 #ifdef MONDEBUG
 				printf("got: %i\n", Event.type);
 #endif
+				break;
 			}
 		}
 
