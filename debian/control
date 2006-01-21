@@ -2,7 +2,7 @@ Source: wmsysmon
 Section: x11
 Priority: extra
 Maintainer: Norbert Tretkowski <nobse@debian.org>
-Build-Depends: debhelper, xlibs-dev
+Build-Depends: debhelper, libx11-dev, libxext-dev, libxpm-dev
 Standards-Version: 3.6.0
 
 Package: wmsysmon
