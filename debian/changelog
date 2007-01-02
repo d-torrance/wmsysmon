@@ -1,3 +1,10 @@
+wmsysmon (0.7.7-4) unstable; urgency=low
+
+  * Orphaning package. (closes: #390871)
+  * ACK NMUs. (closes: #259912, #347059)
+
+ -- Norbert Tretkowski <nobse@debian.org>  Tue,  2 Jan 2007 23:00:02 +0100
+
 wmsysmon (0.7.7-3.2) unstable; urgency=low
 
   * Non-maintainer upload.

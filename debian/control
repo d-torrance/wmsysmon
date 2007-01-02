@@ -1,7 +1,7 @@
 Source: wmsysmon
 Section: x11
 Priority: extra
-Maintainer: Norbert Tretkowski <nobse@debian.org>
+Maintainer: Debian QA Group <packages@qa.debian.org>
 Build-Depends: debhelper, libx11-dev, libxext-dev, libxpm-dev
 Standards-Version: 3.6.0
 
