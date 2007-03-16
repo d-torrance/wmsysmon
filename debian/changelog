@@ -1,3 +1,15 @@
+wmsysmon (0.7.7-5) unstable; urgency=low
+
+  * New Maintainer (Closes: #390871)
+  * Modified copyright for making it more explicative.
+  * Added a Makefile and modified the existing one.
+  * Added a patch (01-break.dpatch) instead of modifing upstream code as previous version did.
+  * Added another patch (02-output.dpatch) for fixing a typo (Closes: #75036)
+  * Modified manpage.
+  * Changed priority from extra to optional.
+
+ -- Luca Bedogni <me@lucabedogni.it>  Fri, 16 Mar 2007 13:45:10 +0100
+
 wmsysmon (0.7.7-4) unstable; urgency=low
 
   * Orphaning package. (closes: #390871)

@@ -1,16 +1,33 @@
 This package was debianized by Brian E. Ermovick talon@debian.org on
 Mon,  1 Feb 1999 01:58:40 -0600.
 
-It was downloaded from ftp://gnugeneration.com/pub/Linux/wmsysmon.
+It was downloaded from <ftp://gnugeneration.com/pub/Linux/wmsysmon>.
 
-Upstream Authors:  Dave Clark (clarkd@skynet.ca)
-		   Vito Caputo (swivel@gnugeneration.com)
+Upstream Authors: Dave Clark <clarkd@skynet.ca>
+		  Vito Caputo <swivel@gnugeneration.com>
 
-Copyright:
+License:
 
-wmsysmon is copyright (c) 1998/99 by Dave Clark and
-(c) 2000 by Vito Caputo.
-You are free to distribute this software under the terms of
-the GNU General Public License.
-On Debian GNU/Linux systems, the complete text of the GNU General
-Public License can be found in /usr/share/common-licenses/GPL file.
+  Copyright (C) 1998-1999 Dave Clark <clarkd@skynet.ca>
+  Copyright (C) 2000 Vito Caputo <swivel@gnugeneration.com>
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+
+On Debian systems, the complete text of the GNU General Public License
+can be found in /usr/share/common-licenses/GPL file.
+
+The Debian packaging is (C) 1999-2007, Brian E. Ermovick <talon@debian.org>,
+(C) 2007 Luca Bedogni <me@lucabedogni.it> and is licensed under the GPL, see
+`/usr/share/common-licenses/GPL'.

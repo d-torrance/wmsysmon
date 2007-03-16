@@ -1,0 +1,16 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 01-break.dpatch by Luca Bedogni <me@lucabedogni.it>
+##
+## DP: Add a break to wmsysmon.c at the end of a switch statement.
+
+@DPATCH@
+
+--- wmsysmon-0.7.7/src/wmsysmon.c	2007-03-16 23:26:00.000000000 +0100
++++ wmsysmon-0.7.7/src/wmsysmon.c	2007-03-14 01:01:41.000000000 +0100
+@@ -288,6 +288,7 @@
+ #ifdef MONDEBUG
+ 				printf("got: %i\n", Event.type);
+ #endif
++        break;
+ 			}
+ 		}

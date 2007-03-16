@@ -1,0 +1,18 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 02-src_makefile.dpatch by Luca Bedogni <me@lucabedogni.it>
+##
+## DP: Change Makefile to fit debian policy
+
+@DPATCH@
+
+--- wmsysmon-0.7.7/src/Makefile	2001-12-24 08:01:43.000000000 +0100
++++ wmsysmon-0.7.7/src/Makefile	2007-03-14 00:43:12.000000000 +0100
+@@ -17,5 +17,6 @@
+ clean:
+ 	rm -f $(OBJS) $(BIN)
+ 
+-install:
+-	install -g root -o root $(BIN) /usr/local/bin
++install: $(BIN)
++	mkdir -p $(DESTDIR)/usr/bin
++	install -g root -o root $(BIN) $(DESTDIR)/usr/bin

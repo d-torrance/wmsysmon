@@ -1,0 +1,21 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 01-output.dpatch by Luca Bedogni <me@lucabedogni.it>
+##
+## DP: Corrects a typo in wmsysmon output.
+
+@DPATCH@
+
+--- wmsysmon-0.7.7/src/wmsysmon.c	2007-03-16 23:26:00.000000000 +0100
++++ wmsysmon-0.7.7/src/wmsysmon.c	2007-03-16 23:27:17.000000000 +0100
+@@ -851,10 +851,10 @@
+ #ifdef HI_INTS
+ 			"| 01234567   UV   |  <--- 0-N are hardware interrupts 0-23\n"
+ 			"| 89ABCDEF   WX   |  <--- U,V are Page IN/OUT, W,X are Swap IN/OUT\n"
+-			"| GHIJKLMN   YZ   |\n"
++			"| GHIJKLMN   YZ   |  <--- Y,Z are Swap IN/OUT\n"
+ #else
+ 			"| 01234567   WX   |  <--- 0-F are hardware interrupts 0-15\n"
+-			"| 89ABCDEF   YZ   |  <--- W,X are Page IN/OUT, W,X are Swap IN/OUT\n"
++			"| 89ABCDEF   YZ   |  <--- W,X are Page IN/OUT, Y,Z are Swap IN/OUT\n"
+ #endif
+ 			"-------------------\n");
