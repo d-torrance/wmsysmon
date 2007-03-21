@@ -1,3 +1,10 @@
+wmsysmon (0.7.7-6) unstable; urgency=low
+
+  * Removed a gcc flag (-m486) for a correct build on all architectures
+    (Closes: #415669)
+
+ -- Luca Bedogni <me@lucabedogni.it>  Wed, 21 Mar 2007 22:46:25 +0100
+
 wmsysmon (0.7.7-5) unstable; urgency=low
 
   * New Maintainer (Closes: #390871)

@@ -7,6 +7,15 @@
 
 --- wmsysmon-0.7.7/src/Makefile	2001-12-24 08:01:43.000000000 +0100
 +++ wmsysmon-0.7.7/src/Makefile	2007-03-14 00:43:12.000000000 +0100
+@@ -3,7 +3,7 @@
+ LIBDIR += -L/usr/X11R6/lib
+ LDFLAGS += -lXpm -lXext -lX11 -lm -s
+ #CFLAGS = -g #-DMONDEBUG
+-CFLAGS += -Wall -O3 -m486 -fomit-frame-pointer -I/usr/X11R6/include #-DHI_INTS #undefine HI_INTS if your x86 SMP or alpha
++CFLAGS += -Wall -O3 -fomit-frame-pointer -I/usr/X11R6/include #-DHI_INTS #undefine HI_INTS if your x86 SMP or alpha
+ 
+ BIN = wmsysmon
+ OBJS =	wmgeneral.o \
 @@ -17,5 +17,6 @@
  clean:
  	rm -f $(OBJS) $(BIN)

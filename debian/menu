@@ -1,2 +1,2 @@
-?package(wmsysmon):needs=X11 section=Apps/System \
+?package(wmsysmon):needs="X11" section="Apps/System" \
   title="wmsysmon" command="/usr/bin/wmsysmon"
