@@ -18,7 +18,7 @@ clean: unpatch
 	rm -f build-stamp
 
 	# Add here commands to clean up after the build process.
-	-$(MAKE) clean
+	[ ! -f Makefile ] || $(MAKE) clean
 
 	dpatch deapply-all
 

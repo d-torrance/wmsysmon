@@ -1,3 +1,12 @@
+wmsysmon (0.7.7-7) unstable; urgency=low
+
+  * Added the watch file
+  * Deleted automatic strip (Closes: #438276)
+  * Modified debian/menu to move application in Apps/System/Monitoring 
+  * Modified debian/changelog for not ignoring errors on make clean.
+
+ -- Luca Bedogni <me@lucabedogni.it>  Thu, 16 Aug 2007 16:09:43 +0200
+
 wmsysmon (0.7.7-6) unstable; urgency=low
 
   * Removed a gcc flag (-m486) for a correct build on all architectures
