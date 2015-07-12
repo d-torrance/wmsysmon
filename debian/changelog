@@ -33,36 +33,37 @@ wmsysmon (0.7.7-8) UNRELEASED; urgency=medium
 
 wmsysmon (0.7.7-7) unstable; urgency=low
 
-  * Added the watch file
-  * Deleted automatic strip (Closes: #438276)
-  * Modified debian/menu to move application in Apps/System/Monitoring 
-  * Modified debian/changelog for not ignoring errors on make clean.
+  * Add the watch file.
+  * Delete automatic strip (Closes: #438276).
+  * Modify debian/menu to move application in Apps/System/Monitoring.
+  * Modify debian/changelog for not ignoring errors on make clean.
 
  -- Luca Bedogni <me@lucabedogni.it>  Thu, 16 Aug 2007 16:09:43 +0200
 
 wmsysmon (0.7.7-6) unstable; urgency=low
 
-  * Removed a gcc flag (-m486) for a correct build on all architectures
-    (Closes: #415669)
+  * Remove a gcc flag (-m486) for a correct build on all architectures
+    (Closes: #415669).
 
  -- Luca Bedogni <me@lucabedogni.it>  Wed, 21 Mar 2007 22:46:25 +0100
 
 wmsysmon (0.7.7-5) unstable; urgency=low
 
-  * New Maintainer (Closes: #390871)
-  * Modified copyright for making it more explicative.
-  * Added a Makefile and modified the existing one.
-  * Added a patch (01-break.dpatch) instead of modifing upstream code as previous version did.
-  * Added another patch (02-output.dpatch) for fixing a typo (Closes: #75036)
-  * Modified manpage.
-  * Changed priority from extra to optional.
+  * New maintainer (Closes: #390871).
+  * Modify copyright for making it more explicative.
+  * Add a Makefile and modified the existing one.
+  * Add a patch (01-break.dpatch) instead of modifing upstream code as previous
+    version did.
+  * Add another patch (02-output.dpatch) for fixing a typo (Closes: #75036).
+  * Modify manpage.
+  * Change priority from extra to optional.
 
  -- Luca Bedogni <me@lucabedogni.it>  Fri, 16 Mar 2007 13:45:10 +0100
 
 wmsysmon (0.7.7-4) unstable; urgency=low
 
-  * Orphaning package. (closes: #390871)
-  * ACK NMUs. (closes: #259912, #347059)
+  * Orphan package (Closes: #390871).
+  * ACK NMUs (Closes: #259912, #347059).
 
  -- Norbert Tretkowski <nobse@debian.org>  Tue,  2 Jan 2007 23:00:02 +0100
 
@@ -70,7 +71,7 @@ wmsysmon (0.7.7-3.2) unstable; urgency=low
 
   * Non-maintainer upload.
   * Replace build-dependency on xlibs-dev with an explicit build-dependency
-    on each required package. (Closes: #347059)
+    on each required package (Closes: #347059).
 
  -- Steinar H. Gunderson <sesse@debian.org>  Sat, 21 Jan 2006 14:28:16 +0100
 
@@ -79,16 +80,16 @@ wmsysmon (0.7.7-3.1) unstable; urgency=low
   * Non-maintainer upload.
   * src/wmsysmon.c: Add break at the end of the default label clause
     of a switch statement to fix a build failure with GCC 4.0.
-    Applied patch from Andreas Jochens (closes: #259912).
+    Apply patch from Andreas Jochens (Closes: #259912).
 
  -- Roger Leigh <rleigh@debian.org>  Sun,  4 Sep 2005 16:52:12 +0100
 
 wmsysmon (0.7.7-3) unstable; urgency=low
 
-  * Manpage fixed (closes: #93475, #165944).
-  * Bumped up Standards-Version (no changes).
-  * Removed -1 diff from source package.
-  * Modified description to shut up lintian.
+  * Fix manpage (Closes: #93475, #165944)..
+  * Bump up Standards-Version (no changes).
+  * Remove -1 diff from source package.
+  * Modify description to shut up lintian.
 
  -- Norbert Tretkowski <nobse@debian.org>  Tue, 12 Aug 2003 02:24:56 +0200
 
@@ -100,69 +101,68 @@ wmsysmon (0.7.7-2) unstable; urgency=low
 
 wmsysmon (0.7.7-1) unstable; urgency=low
 
-  * New upstread release (closes: #168185).
+  * New upstream release (Closes: #168185).
 
  -- Norbert Tretkowski <nobse@debian.org>  Sun, 25 May 2003 00:14:14 +0100
 
 wmsysmon (0.7.6-4.1) unstable; urgency=low
 
-  * Corrected spelling error in description (closes: #124563).
-  * Corrected Build-Depends.
+  * Correct spelling error in description (Closes: #124563).
+  * Correct Build-Depends.
 
  -- Norbert Tretkowski <nobse@debian.org>  Sat, 16 Feb 2002 22:04:51 +0100
 
 wmsysmon (0.7.6-4) unstable; urgency=low
 
-  * Manpage added.
+  * Add manpage.
 
  -- Norbert Tretkowski <nobse@debian.org>  Sun, 15 Apr 2001 16:09:21 +0100
 
 wmsysmon (0.7.6-3) unstable; urgency=low
 
-  * Corrected Build-Depends (closes: #92685).
+  * Correct Build-Depends (Closes: #92685).
 
  -- Norbert Tretkowski <nobse@debian.org>  Sat,  7 Apr 2001 18:31:44 +0100
 
 wmsysmon (0.7.6-2) unstable; urgency=low
 
-  * Linked against xlib6g 3.3.6, not 4.0.1 (closes: #74792, #74808).
+  * Link against xlib6g 3.3.6, not 4.0.1 (Closes: #74792, #74808).
 
  -- Norbert Tretkowski <nobse@nobse.de>  Tue, 31 Oct 2000 21:35:41 +0200
 
 wmsysmon (0.7.6-1) unstable; urgency=low
 
-  * Adopted package (closes: #68140).
-  * Linked against libxpm4 (closes: #67951).
-  * Updated to Standards-Version 3.1.1.
+  * Adopt package (Closes: #68140).
+  * Link against libxpm4 (Closes: #67951).
+  * Update to Standards-Version 3.1.1.
 
  -- Norbert Tretkowski <nobse@nobse.de>  Thu, 14 Oct 2000 15:41:34 +0200
 
 wmsysmon (0.7.6-0.1) unstable; urgency=low
 
-  * Non-Maintainer Upload. This package needs a maintainer!
+  * Non-Maintainer upload. This package needs a maintainer!
   * New upstream release.
-  * Rebuilt with a newer libxpm, the package gets the correct depends on
-    libxpm4 now (closes: #67951).
-  * Compiled with glibc 2.1.94.
-  * src/Makefile: added some variables to fix the default, hardcoded
+  * Rebuild with a newer libxpm, the package gets the correct depends on
+    libxpm4 now (Closes: #67951).
+  * Compile with glibc 2.1.94.
+  * src/Makefile: Add some variables to fix the default, hardcode
     installation paths. The binary now installs in /usr/bin.
   * Many changes in the debian/ dir for the new release:
-    + added a menu entry.
-    + rules: added support for DEB_BUILD_OPTIONS debug and nostrip, fixed
+    + Add a menu entry.
+    + rules: Add support for DEB_BUILD_OPTIONS debug and nostrip, fix
       CFLAGS.
-    + copyright: updated license location, changed download URL and added
+    + copyright: Update license location, change download URL and add
       the new upstream maintainer.
-    + docs: added FAQ, removed BUGS.
-    + control: added Build-Depends, updated description and upped
+    + docs: Add FAQ, remove BUGS.
+    + control: Add Build-Depends, update description and up
       Standards-Version to 3.0.1.
 
  -- Jordi Mallach <jordi@debian.org>  Sat, 30 Sep 2000 05:19:57 +0200
 
 wmsysmon (0.2-2) unstable; urgency=low
 
-  *  Modified Initial Release.
-
-  *  Recompiled to take advantage of talon@debian.org.  Added to
+  *  Modified initial release.
+  *  Recompile to take advantage of talon@debian.org.  Added to
      version number simply for those who beta-tested my original
      (pre-maintainer) 0.2-1
 
@@ -170,6 +170,6 @@ wmsysmon (0.2-2) unstable; urgency=low
 
 wmsysmon (0.2-1) unstable; urgency=low
 
-  * Initial Release.
+  * Initial release.
 
  -- Brian E. Ermovick <talon@debian.org>  Mon,  1 Feb 1999 01:58:40 -0600
