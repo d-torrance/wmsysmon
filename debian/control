@@ -1,7 +1,7 @@
 Source: wmsysmon
 Section: x11
 Priority: optional
-Maintainer: Luca Bedogni <me@lucabedogni.it>
+Maintainer: Doug Torrance <dtorrance@monmouthcollege.edu>
 Build-Depends: debhelper (>= 9), libx11-dev, libxext-dev, libxpm-dev
 Standards-Version: 3.7.2
 
