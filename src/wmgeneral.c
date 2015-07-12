@@ -8,9 +8,6 @@
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
-#ifdef PROF
-#include <Profile/Profiler.h>
-#endif
 
 #include "wmgeneral.h"
 
@@ -37,10 +34,6 @@ static void GetXPM(XpmIcon *wmgen, char *pixmap_bytes[]) {
 
 	XWindowAttributes	attributes;
 	int			err;
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "GetXPM", "(XpmIcon *, char *)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	/* For the colormap */
 	XGetWindowAttributes(display, Root, &attributes);
@@ -54,9 +47,6 @@ static void GetXPM(XpmIcon *wmgen, char *pixmap_bytes[]) {
 	wmgen->dirty_w = 0;
 	wmgen->dirty_h = 0;
 	
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 	if (err != XpmSuccess) {
 		fprintf(stderr, "Not enough free colorcells.\n");
 		exit(1);
@@ -68,10 +58,6 @@ static Pixel GetColor(char *name) {
 
 	XColor				color;
 	XWindowAttributes	attributes;
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "GetColor", "Pixel", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	XGetWindowAttributes(display, Root, &attributes);
 
@@ -82,18 +68,11 @@ static Pixel GetColor(char *name) {
 		fprintf(stderr, "wm.app: can't allocate %s.\n", name);
 	}
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 	return color.pixel;
 }
 
 
 void RedrawWindow(void) {
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "RedrawWindow", "", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 	
 	if(wmgen.dirty_w && wmgen.dirty_h)
 	XCopyArea(display,
@@ -133,34 +112,20 @@ void RedrawWindow(void) {
 	wmgen.dirty_w = 0;
 	wmgen.dirty_h = 0;
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
 void RedrawWindowXY(int x, int y) {
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "RedrawWindowXY", "(int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 	
 	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, 
 				x, y, wmgen.attributes.width, wmgen.attributes.height, 0,0);
 	XCopyArea(display, wmgen.pixmap, win, NormalGC,
 				x, y, wmgen.attributes.width, wmgen.attributes.height, 0,0);
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
 void DirtyWindow(int x, int y, unsigned int w, unsigned int h) {
-	static	nx, ny, nw, nh;
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "DirtyWindow", "(int, int, unsigned int, unsigned int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
+	static	int	nx, ny, nw, nh;
 
 #ifdef MONDEBUG
 	printf("currently dirty: X: %i Y: %i W: %u H: %u new: X: %i Y: %i W: %u H: %u\n",
@@ -191,20 +156,11 @@ void DirtyWindow(int x, int y, unsigned int w, unsigned int h) {
 	wmgen.dirty_w = nw;
 	wmgen.dirty_h = nh;
 #ifdef MONDEBUG
-	printf("Final: X: %i Y: %i W: %u H: %u\n",
-		wmgen.dirty_x,
-		wmgen.dirty_y,
-		wmgen.dirty_w,
-		wmgen.dirty_h);
-		
 	printf("Dirty: X: %i Y: %i W: %i H: %i\n",
 		wmgen.dirty_x,
 		wmgen.dirty_y,
 		wmgen.dirty_w,
 		wmgen.dirty_h);
-#endif
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
 #endif
 };
 
@@ -218,10 +174,6 @@ void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
     int		bcount;
     int     curpixel;
 
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "createXBMfromXPM", "(char *, char **, int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 	
 	sscanf(*xpm, "%d %d %d %d", &width, &height, &numcol, &depth);
 
@@ -258,17 +210,10 @@ void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
 		}
 	}
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
 void copyXPMArea(int sx, int sy, unsigned int w, unsigned int h, int dx, int dy) {
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "copyXPMArea", "(int, int, int, int, int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	XCopyArea(display,
 		  wmgen.pixmap,
@@ -282,17 +227,10 @@ void copyXPMArea(int sx, int sy, unsigned int w, unsigned int h, int dx, int dy)
 		  dy);
 
 	DirtyWindow(dx, dy, w, h);
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
 void copyXBMArea(int sx, int sy, unsigned int w, unsigned int h, int dx, int dy) {
-#ifdef PROF
-	TAU_PROFILE_TIMER(tautimer, "copyXBMArea", "(int, int, unsigned int, unsigned int, int, int)", TAU_DEFAULT);
-	TAU_PROFILE_START(tautimer);
-#endif
 
 	XCopyArea(display,
 		  wmgen.mask,
@@ -307,9 +245,6 @@ void copyXBMArea(int sx, int sy, unsigned int w, unsigned int h, int dx, int dy)
 
 	DirtyWindow(dx, dy, w, h);
 
-#ifdef PROF
-	TAU_PROFILE_STOP(tautimer);
-#endif
 }
 
 
@@ -320,7 +255,7 @@ void setMaskXY(int x, int y) {
 }
 
 
-void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bits, int pixmask_width, int pixmask_height) {
+int openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bits, int pixmask_width, int pixmask_height) {
 
 	unsigned int	borderwidth = 1;
 	XClassHint		classHint;
@@ -334,7 +269,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	char			*geometry = NULL;
 
 	int				dummy=0;
-	int				i, wx, wy;
+	int				i, wx, wy, fd;
 
 	for (i=1; argv[i]; i++) {
 		if (!strcmp(argv[i], "-display")) {
@@ -350,8 +285,9 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	if (!(display = XOpenDisplay(display_name))) {
 		fprintf(stderr, "%s: can't open display %s\n", 
 						wname, XDisplayName(display_name));
-		exit(1);
+		return -1;
 	}
+	fd = ConnectionNumber(display);
 	screen  = DefaultScreen(display);
 	Root    = RootWindow(display, screen);
 	d_depth = DefaultDepth(display, screen);
@@ -392,7 +328,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
 	if (XStringListToTextProperty(&wname, 1, &name) == 0) {
 		fprintf(stderr, "%s: can't allocate window name\n", wname);
-		exit(1);
+		return -1;
 	}
 
 	XSetWMName(display, win, &name);
@@ -429,8 +365,10 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	if (geometry) {
 		if (sscanf(geometry, "+%d+%d", &wx, &wy) != 2) {
 			fprintf(stderr, "Bad geometry string.\n");
-			exit(1);
+			return -1;
 		}
 		XMoveWindow(display, win, wx, wy);
 	}
+
+	return fd;
 }

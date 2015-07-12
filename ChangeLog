@@ -1,4 +1,28 @@
 -- end --
+- Aug 4 2002 - Vito Caputo (swivel@gnugeneration.com) -
+	* a few changes, i can't recall, the interrupt meters have been refined
+	  a bit, main event loop changed but theres a slight bug with the
+	  event loop timing, the timeout doesnt get updated dynamically if the
+	  main select() exits before the timeout...  you can see this by say
+	  dragging an icon over wmsysmon a bunch, the meters will all shrink
+	  if interrupts are ocurring, because the time between polls of
+	  the interrupt counts is shorter than before, causing it to think
+	  theres less interrupts, when in fact, there was less time for them
+	  to occur, minor bug.
+
+- Dec 24 2001 - Vito Caputo (swivel@gnugeneration.com) -
+	* minor cleanups, in wmgeneral.c added static int where was just static.
+	  (int is assumed but caused warning in -Wall), also removed some
+	  unused variables...
+
+- Dec 23 2001 - Vito Caputo (swivel@gnugeneration.com) -
+	* removed profiling instrumentation, it's no longer needed.
+	* updated meters, the behaviour is changed a bit, interrupts that
+	  never occur dont get the _ level so you can see which are inactive
+	  in the system, and they should be more responsive.
+	* removed usleep() usage and switched to poll() with a timeout on the
+	  X connection fd, more efficient and allows expose events to be handled
+	  with less latency.
 
 - Jul 11 2000 - Vito Caputo (swivel@gnugeneration.com) -
 	* eliminated the memcpy() used for copying interrupt statistics into

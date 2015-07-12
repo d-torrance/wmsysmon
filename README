@@ -18,16 +18,8 @@ binary in /usr/local/bin to use wmsysmon, it may be run from anywhere in
 the filesystem, but on a multi-user system it is preferred to have it available
 for everyone to use, hence /usr/local/bin.
 
-For information on running wmsysmon, execute 'wmsysmon -h' afer building (and
+For information on running wmsysmon, execute 'wmsysmon -h' after building (and
 installing) using the above instructions.
-
-I have also added some profiling output in the directory "profiles", you can
-see in these files the improvements that have been done (scientific proof)
-to wmsysmon.
-
-The Makefile-profile makefile is used for building wmsysmon with profiling
-enabled, this requires the profiling tools to be installed and configured.
-You probably dont care about this.
 
 Cheers.
 
