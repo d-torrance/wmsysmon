@@ -13,4 +13,5 @@ Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: WindowMaker dock-app for monitoring your system
  wmsysmon is a dockable application for WindowMaker (and possibly Afterstep).
- It monitors Memory, Swap, Disk IO, uptime and interrupts.
+ It monitors system information on interrupt activity, memory use, swap use,
+ and IO.
