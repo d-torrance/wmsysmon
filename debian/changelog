@@ -1,6 +1,6 @@
 wmsysmon (0.7.7-8) UNRELEASED; urgency=medium
 
-  * New maintainer.
+  * New maintainer (Closes: #792213).
   * debian/compat
     - Bump to 9.
   * debian/control
@@ -9,12 +9,23 @@ wmsysmon (0.7.7-8) UNRELEASED; urgency=medium
     - Remove dpatch from Build-Depends.
     - Bump Standards-Version to 3.9.6.
     - Add Homepage and Vcs-*.
-  * debian/patches/0*
-    - Convert patches from dpatch to quilt, add DEP3 headers, and rename
-      from *.dpatch to *.patch.
-  * debian/patches/04-makefile-strip.patch
+    - Lengthen Description.
+  * debian/copyright
+    - Convert to DEP5 format.
+  * debian/manpages
+    - New file.
+  * debian/patches/{break,output,src_makefile,makefile-strip}.patch
+    - Rename from 01-break.dpatch, 02-output.dpatch, 03-src_makefile.dpatch,
+      and 04-makefile.dpatch.
+    - Convert patches from dpatch to quilt
+    - Add DEP3 headers.
+  * debian/patches/makefile-strip.patch
     - Patch src/Makefile and not Makefile; the latter does not exist in the
       .orig tarball.
+  * debian/patches/unused-{but-set-variable,result}.patch
+    - New patches; fix compiler warnings.
+  * debian/rules
+    - Update to use dh.
   * debian/source/format
     - New file; use 3.0 (quilt).
 
