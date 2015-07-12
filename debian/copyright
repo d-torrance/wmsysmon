@@ -1,32 +1,37 @@
-This package was debianized by Brian E. Ermovick talon@debian.org on
-Mon,  1 Feb 1999 01:58:40 -0600.
-It was downloaded from http://www.gnugeneration.com/software/wmsysmon.html.
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: wmsysmon
+Upstream-Contact: Vito Caputo <swivel@gnugeneration.com>
+Source: http://www.gnugeneration.com/software/wmsysmon/
 
-Upstream Authors: Dave Clark <clarkd@skynet.ca>
-          Vito Caputo <swivel@gnugeneration.com>
+Files: *
+Copyright: 1998-1999 Dave Clark <clarkd@skynet.ca>
+	   2000 Vito Caputo <swivel@gnugeneration.com>
+License: GPL-2+
 
-License:
+Files: debian/*
+Copyright: 1999-2007 Brian E. Ermovick <talon@debian.org>,
+	   2007 Luca Bedogni <me@lucabedogni.it>
+	   2015 Doug Torrance <dtorrance@monmouthcollege.edu>
+License: GPL-2+
 
-  Copyright (C) 1998-1999 Dave Clark <clarkd@skynet.ca>
-  Copyright (C) 2000 Vito Caputo <swivel@gnugeneration.com>
-
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-
-On Debian systems, the complete text of the GNU General Public License
-can be found in /usr/share/common-licenses/GPL file.
-
-The Debian packaging is (C) 1999-2007, Brian E. Ermovick <talon@debian.org>,
-(C) 2007 Luca Bedogni <me@lucabedogni.it> and is licensed under the GPL, see
-`/usr/share/common-licenses/GPL'.
+License: GPL-2+
+ This program is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later
+ version.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
