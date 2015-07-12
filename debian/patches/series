@@ -1,6 +1,6 @@
-01-break.patch
-02-output.patch
-03-src_makefile.patch
-04-makefile-strip.patch
+break.patch
+output.patch
+src_makefile.patch
+makefile-strip.patch
 unused-but-set-variable.patch
 unused-result.patch
