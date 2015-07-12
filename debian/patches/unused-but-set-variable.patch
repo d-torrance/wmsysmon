@@ -1,0 +1,18 @@
+Description: Fix "variable ‘stage’ set but not used" compiler warning.
+Author: Doug Torrance <dtorrance@monmouthcollege.edu>
+Last-Update: 2015-07-12
+
+--- a/src/wmsysmon.c
++++ b/src/wmsysmon.c
+@@ -439,10 +439,9 @@
+ 	static long	swapins;
+ 	static long	swapouts;
+ 	static long	intdiff;
+-	static long	stage;
+ 	static long	*tints;
+ 
+-	stage = io = iodiff = iopercent = pageins = pageouts = swapins = swapouts = 0;
++	io = iodiff = iopercent = pageins = pageouts = swapins = swapouts = 0;
+ 
+ 	statfp = freopen("/proc/stat", "r", statfp);
+ 

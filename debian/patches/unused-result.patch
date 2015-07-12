@@ -1,0 +1,16 @@
+Description: Fix "ignoring return value of ‘fscanf’" compiler warning.
+Author: Doug Torrance <dtorrance@monmouthcollege.edu>
+Last-Update: 2015-07-12
+
+--- a/src/wmsysmon.c
++++ b/src/wmsysmon.c
+@@ -233,7 +233,8 @@
+     /* init uptime */
+ 	fp = fopen("/proc/uptime", "r");
+ 	if (fp) {
+-		fscanf(fp, "%ld", &start_time);
++		if (fscanf(fp, "%ld", &start_time) < 1)
++			fprintf(stderr, "warning: could not read uptime\n");
+ 		fclose(fp);
+ 		start_uptime = time(NULL);
+ 	}

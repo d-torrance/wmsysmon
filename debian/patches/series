@@ -2,3 +2,5 @@
 02-output.patch
 03-src_makefile.patch
 04-makefile-strip.patch
+unused-but-set-variable.patch
+unused-result.patch
