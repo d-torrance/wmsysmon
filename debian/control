@@ -4,6 +4,9 @@ Priority: optional
 Maintainer: Doug Torrance <dtorrance@monmouthcollege.edu>
 Build-Depends: debhelper (>= 9), libx11-dev, libxext-dev, libxpm-dev
 Standards-Version: 3.9.6
+Homepage: http://www.gnugeneration.com/software/wmsysmon/
+Vcs-Git: https://github.com/d-torrance/wmsysmon
+Vcs-Browser: https://github.com/d-torrance/wmsysmon
 
 Package: wmsysmon
 Architecture: any
