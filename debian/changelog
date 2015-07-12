@@ -1,3 +1,25 @@
+wmsysmon (0.7.7-8) UNRELEASED; urgency=medium
+
+  * New maintainer.
+  * debian/compat
+    - Bump to 9.
+  * debian/control
+    - Tidy using wrap-and-sort.
+    - Bump versioned dependency on debhelper to >= 9.
+    - Remove dpatch from Build-Depends.
+    - Bump Standards-Version to 3.9.6.
+    - Add Homepage and Vcs-*.
+  * debian/patches/0*
+    - Convert patches from dpatch to quilt, add DEP3 headers, and rename
+      from *.dpatch to *.patch.
+  * debian/patches/04-makefile-strip.patch
+    - Patch src/Makefile and not Makefile; the latter does not exist in the
+      .orig tarball.
+  * debian/source/format
+    - New file; use 3.0 (quilt).
+
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sun, 12 Jul 2015 10:43:06 -0600
+
 wmsysmon (0.7.7-7) unstable; urgency=low
 
   * Added the watch file
