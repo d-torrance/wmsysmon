@@ -2,8 +2,8 @@ Description: Delete automatic stripping of binary
 Author: Luca Bedogni <me@lucabedogni.it>
 Last-Update: 2015-07-12
 
---- a/Makefile
-+++ b/Makefile
+--- a/src/Makefile
++++ b/src/Makefile
 @@ -1,7 +1,7 @@
  CC = gcc
  
