@@ -1,0 +1,70 @@
+wmsysmon 0.2 beta Public Release
+--------------------------------------------------------------
+Author...:	Dave Clark (clarkd@skynet.ca)
+
+Homepage :      http://www.neotokyo.org
+
+Description
+--------------------------------------------------------------
+Well, i was bored this afternoon, so i decided to code this.
+
+Its a system monitor util for your wm/afterstep dock.
+
+It monitors Memory, Swap, Disk IO, uptime and interrupts.
+
+kinda pretty looking.
+
+ok ok, everyone has been complaining about the docs (or lack thereof)
+
+here's how the applet is laid out:
+
+-------------------
+|[---------------]|  <--- Memory Use %
+|[---------------]|  <--- Swap Use %
+|[---------------]|  <--- I/O %
+|                 |
+|   000:00:00     |  <--- Uptime days:hours:minutes
+|                 |
+| 01234567   WX   |  <--- 0-F are hardware interrupts 0-15
+| 89ABCDEF   YZ   |  <--- W,X are Page IN/OUT
+-------------------  <--- Y,Z are Swap IN/OUT
+
+
+That should explain things a little better.  Phew.. I love asci drawings.
+
+Mail me with ideas/comments/bug reports, etc....
+
+Installing
+--------------------------------------------------------------
+cd wmsysmon
+make
+make install
+
+should do it.
+
+Options
+--------------------------------------------------------------
+Do a 'wmsysmon -h' to see the options...
+
+
+Files
+--------------------------------------------------------------
+README		This file.
+BUGS		Things you don't want to know ;-)
+CHANGES		Description of changes.
+COPYING		GNU General Public License Version 2.
+	
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to clarkd@skynet.ca and describe the
+problem as detailed! as you can.
+
+
+Copyright
+--------------------------------------------------------------
+wmsysmon is copyright (c) 1998/99 by Dave Clark
+
+wmsysmon is licensed through the GNU General Public License.
+Read the COPYING file for the complete GNU license.

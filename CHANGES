@@ -1,0 +1,10 @@
+Version		Description
+--------------------------------------------------------------
+
+0.2
+	* Added -r option to allow easy control of update rate.
+        * Updated sparse docs to be a little less sparse :)
+	* Implemented the swap in/out lights.
+0.1
+	* First initial public release.
+	
