@@ -1,0 +1,14 @@
+Description: Add a break to wmsysmon.c at the end of a switch statement.
+Author: Luca Bedogni <me@lucabedogni.it>
+Last-Update: 2015-07-12
+
+--- a/src/wmsysmon.c
++++ b/src/wmsysmon.c
+@@ -288,6 +288,7 @@
+ #ifdef MONDEBUG
+ 				printf("got: %i\n", Event.type);
+ #endif
++        break;
+ 			}
+ 		}
+ 

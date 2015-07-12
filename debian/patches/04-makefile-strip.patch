@@ -1,0 +1,15 @@
+Description: Delete automatic stripping of binary
+Author: Luca Bedogni <me@lucabedogni.it>
+Last-Update: 2015-07-12
+
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ CC = gcc
+ 
+ LIBDIR += -L/usr/X11R6/lib
+-LDFLAGS += -lXpm -lXext -lX11 -lm -s
++LDFLAGS += -lXpm -lXext -lX11 -lm
+ #CFLAGS = -g #-DMONDEBUG
+ CFLAGS += -Wall -O3 -fomit-frame-pointer -I/usr/X11R6/include #-DHI_INTS #undefine HI_INTS if your x86 SMP or alpha
+ 
