@@ -21,3 +21,5 @@ clean:
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	install -g root -o root $(BIN) $(DESTDIR)$(PREFIX)/bin
+	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
+	install -m 644 wmsysmon.1 $(DESTDIR)$(PREFIX)/share/man/man1

@@ -1,0 +1,47 @@
+.TH wmsysmon 1 "2001-04-09" Debian "System Monitor Dockable Application"
+
+.SH NAME
+wmsysmon \- Windowmaker dock-app for monitoring your system.
+
+.SH SYNOPSIS
+wmsysmon
+[ \fB-display\fP <display name> ]
+[ \fB-geometry\fP +Xpos+Ypos ]
+[ \fB-r\fP  update rate in ms ]
+[ \fB-l\fP blinky lights for interrupts ]
+[ \fB-h\fP print help screen ]
+[ \fB-v\fP print version number ]
+
+.SH DESCRIPTION
+.B wmsysmon
+is a dockable application for Windowmaker (and possibly Afterstep). It monitors Memory, Swap, Disk IO, uptime and interrupts.
+
+.SH OPTIONS
+.TP
+.BI \-display <display name>
+Sets the display where wmsysmon will appear.
+.TP
+.BI \-geometry +Xpos+Ypos
+Set the position for wmsysmon.
+.TP
+.BI \-r updateRate
+Sets the update rate for wmsysmon.
+.TP
+.B \-l
+Set blinky lights on.
+.TP
+.B \-h
+Show the help screen.
+.TP
+.B \-v
+Print wmsysmon's version number.
+
+.SH SEE ALSO
+.BR Website
+<ftp://gnugeneration.com/pub/Linux/wmsysmon>
+
+.SH AUTHOR
+wmsysmon was written by Dave Clark <clarkd@skynet.ca> and Vito Caputo
+<swivel@gnugeneration.com>.
+This manual page was written by Luca Bedogni <me@lucabedogni.it>, for the
+Debian project (but may be used by others).
