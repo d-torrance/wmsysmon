@@ -1,4 +1,5 @@
 CC = gcc
+PREFIX = /usr
 
 LIBDIR += -L/usr/X11R6/lib
 LDFLAGS += -lXpm -lXext -lX11 -lm -s
@@ -18,4 +19,5 @@ clean:
 	rm -f $(OBJS) $(BIN)
 
 install:
-	install -g root -o root $(BIN) /usr/local/bin
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	install -g root -o root $(BIN) $(DESTDIR)$(PREFIX)/bin
