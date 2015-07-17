@@ -851,10 +851,10 @@ void usage(void)
 #ifdef HI_INTS
 			"| 01234567   UV   |  <--- 0-N are hardware interrupts 0-23\n"
 			"| 89ABCDEF   WX   |  <--- U,V are Page IN/OUT, W,X are Swap IN/OUT\n"
-			"| GHIJKLMN   YZ   |\n"
+			"| GHIJKLMN   YZ   |  <--- Y,Z are Swap IN/OUT\n"
 #else
 			"| 01234567   WX   |  <--- 0-F are hardware interrupts 0-15\n"
-			"| 89ABCDEF   YZ   |  <--- W,X are Page IN/OUT, W,X are Swap IN/OUT\n"
+			"| 89ABCDEF   YZ   |  <--- W,X are Page IN/OUT, Y,Z are Swap IN/OUT\n"
 #endif
 			"-------------------\n");
 
