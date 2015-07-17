@@ -288,6 +288,7 @@ void wmsysmon_routine(int argc, char **argv)
 			default:
 				printf("got: %i\n", Event.type);
 #endif
+        break;
 			}
 		}
 
