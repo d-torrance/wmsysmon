@@ -233,7 +233,8 @@ void wmsysmon_routine(int argc, char **argv)
     /* init uptime */
 	fp = fopen("/proc/uptime", "r");
 	if (fp) {
-		fscanf(fp, "%ld", &start_time);
+		if (fscanf(fp, "%ld", &start_time) < 1)
+			fprintf(stderr, "warning: could not read uptime\n");
 		fclose(fp);
 		start_uptime = time(NULL);
 	}
