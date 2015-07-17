@@ -284,8 +284,8 @@ void wmsysmon_routine(int argc, char **argv)
 				exit(0);
 				break;
 
-			default:
 #ifdef MONDEBUG
+			default:
 				printf("got: %i\n", Event.type);
 #endif
 			}
@@ -438,10 +438,9 @@ void DrawStuff( void )
 	static long	swapins;
 	static long	swapouts;
 	static long	intdiff;
-	static long	stage;
 	static long	*tints;
 
-	stage = io = iodiff = iopercent = pageins = pageouts = swapins = swapouts = 0;
+	io = iodiff = iopercent = pageins = pageouts = swapins = swapouts = 0;
 
 	statfp = freopen("/proc/stat", "r", statfp);
 
