@@ -2,16 +2,16 @@ CC = gcc
 PREFIX = /usr
 
 LIBDIR += -L/usr/X11R6/lib
-LDFLAGS += -lXpm -lXext -lX11 -lm -s
+LIBS = $(shell pkg-config --libs xpm xext x11) -lm
 #CFLAGS = -g #-DMONDEBUG
-CFLAGS += -Wall -O3 -fomit-frame-pointer -I/usr/X11R6/include #-DHI_INTS #undefine HI_INTS if your x86 SMP or alpha
+CFLAGS += -Wall -O3 -fomit-frame-pointer $(shell pkg-config --cflags xpm xext x11) #-DHI_INTS #undefine HI_INTS if your x86 SMP or alpha
 
 BIN = wmsysmon
 OBJS =	wmgeneral.o \
 	wmsysmon.o
 
 $(BIN): $(OBJS)
-	$(CC) -o $(BIN) $(OBJS) $(LIBDIR) $(LDFLAGS)
+	$(CC) $(LDFLAGS) -o $(BIN) $(OBJS) $(LIBDIR) $(LIBS)
 
 all: wmsysmon
 
