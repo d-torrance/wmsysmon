@@ -854,7 +854,7 @@ void usage(void)
 			"| GHIJKLMN   YZ   |\n"
 #else
 			"| 01234567   WX   |  <--- 0-F are hardware interrupts 0-15\n"
-			"| 89ABCDEF   YZ   |  <--- W,X are Page IN/OUT, W,X are Swap IN/OUT\n"
+			"| 89ABCDEF   YZ   |  <--- W,X are Page IN/OUT, Y,Z are Swap IN/OUT\n"
 #endif
 			"-------------------\n");
 
