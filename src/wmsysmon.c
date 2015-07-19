@@ -83,8 +83,7 @@ int	wmsysmon_mask_height = 64;
 long	start_time = 0;
 long	start_uptime = 0;
 int	counter = 0;
-int	Mem_l; /* line in /proc/meminfo "Mem:" is on */
-int	Swap_l; /* line in /proc/meminfo "Swap:" is on */
+int	MemTotal_l, MemFree_l, SwapTotal_l, SwapFree_l; /* lines in /proc/meminfo */
 int	intr_l;	/* line in /proc/stat "intr" is on */
 int	rio_l; /* line in /proc/stat "disk_rio" is on */
 int	wio_l; /* line in /proc/stat "disk_wio" is on */
@@ -246,8 +245,10 @@ void wmsysmon_routine(int argc, char **argv)
 	 */
 	/* /proc/meminfo */
 	for(i = 0; fgets(buf, 1024, memfp); i++) {
-		if(strstr(buf, "Mem:")) Mem_l = i;
-		else if(strstr(buf, "Swap:")) Swap_l = i;
+		if(strstr(buf, "MemTotal:")) MemTotal_l = i;
+		else if(strstr(buf, "MemFree:")) MemFree_l = i;
+		else if(strstr(buf, "SwapTotal:")) SwapTotal_l = i;
+		else if(strstr(buf, "SwapFree:")) SwapFree_l = i;
 	}
 
 	/* /proc/stat */
@@ -729,13 +730,8 @@ void DrawStuff( void )
 void DrawMem(void)
 {
 	static int	last_mem = 0, last_swap = 0, first = 1;
-	static long 	mem_total = 0;
-	static long 	mem_used = 0;
-	static long 	mem_buffers = 0;
-	static long 	mem_cache = 0;
-	static long 	swap_total = 0;
-	static long 	swap_used = 0;
-	static long 	swap_free = 0;
+	static long 	mem_total, mem_free;
+	static long 	swap_total, swap_free;
 
 	static int 	mempercent = 0;
 	static int 	swappercent = 0;
@@ -749,19 +745,18 @@ void DrawMem(void)
 
 	memfp = freopen("/proc/meminfo", "r", memfp);
 
-	for(i = 0, ents = 0; ents < 2 && fgets(buf, 1024, memfp); i++) {
-		if(i == Mem_l) {
-			sscanf(buf, "%*s %ld %ld %*d %*d %ld %ld",
-				&mem_total,
-				&mem_used,
-				&mem_buffers,
-				&mem_cache);
+	for(i = 0, ents = 0; ents < 6 && fgets(buf, 1024, memfp); i++) {
+		if(i == MemTotal_l) {
+			sscanf(buf, "%*s %ld", &mem_total);
 			ents++;
-		} else if(i == Swap_l) {
-			sscanf(buf, "%*s %ld %ld %ld",
-				&swap_total,
-				&swap_used,
-				&swap_free);
+		} else if(i == MemFree_l) {
+			sscanf(buf, "%*s %ld", &mem_free);
+			ents++;
+		} else if(i == SwapTotal_l) {
+			sscanf(buf, "%*s %ld", &swap_total);
+			ents++;
+		} else if(i == SwapFree_l) {
+			sscanf(buf, "%*s %ld", &swap_free);
 			ents++;
 		}
 	}
@@ -769,11 +764,11 @@ void DrawMem(void)
 	/* could speed this up but we'd lose precision, look more into it to see
 	 * if precision change would be noticable, and if speed diff is significant
 	 */
-	mempercent = ((float)(mem_used - mem_buffers - mem_cache)
+	mempercent = ((float)(mem_total - mem_free)
 		     /
 		     (float)mem_total) * 100;
 
-	swappercent = ((float)(swap_used)
+	swappercent = ((float)(swap_total - swap_free)
 		      /
 		      (float)swap_total) * 100;
 
