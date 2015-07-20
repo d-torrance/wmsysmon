@@ -87,8 +87,7 @@ int	MemTotal_l, MemFree_l, SwapTotal_l, SwapFree_l; /* lines in /proc/meminfo */
 int	intr_l;	/* line in /proc/stat "intr" is on */
 int	rio_l; /* line in /proc/stat "disk_rio" is on */
 int	wio_l; /* line in /proc/stat "disk_wio" is on */
-int	page_l; /* line in /proc/stat "page" is on */
-int	swap_l; /* line in /proc/stat "swap" is on */
+int	pgpgin_l, pgpgout_l, pswpin_l, pswpout_l; /* lines in /proc/vmstat */
 
 long	io_max;
 long	io_max_diff;
@@ -117,6 +116,7 @@ long	last_swapouts=0;
 char	buf[1024];
 FILE	*statfp;
 FILE	*memfp;
+FILE	*vmstatfp;
 
 int	update_rate = 50;
 
@@ -239,10 +239,12 @@ void wmsysmon_routine(int argc, char **argv)
 
 	statfp = fopen("/proc/stat", "r");
 	memfp = fopen("/proc/meminfo", "r");
+	vmstatfp = fopen("/proc/vmstat", "r");
 
-	/* here we find tags in /proc/stat & /proc/meminfo and note their
-	 * lines, for faster lookup throughout execution.
+	/* here we find tags in /proc/stat, /proc/meminfo, & /proc/vmstat and
+	 * note their lines, for faster lookup throughout execution.
 	 */
+
 	/* /proc/meminfo */
 	for(i = 0; fgets(buf, 1024, memfp); i++) {
 		if(strstr(buf, "MemTotal:")) MemTotal_l = i;
@@ -255,9 +257,15 @@ void wmsysmon_routine(int argc, char **argv)
 	for(i = 0; fgets(buf, 1024, statfp); i++) {
 		if(strstr(buf, "disk_wio")) wio_l = i;
 		else if(strstr(buf, "disk_rio")) rio_l = i;
-		else if(strstr(buf, "page")) page_l = i;
-		else if(strstr(buf, "swap")) swap_l = i;
 		else if(strstr(buf, "intr")) intr_l = i;
+	}
+
+	/* /proc/vmstat */
+	for(i = 0; fgets(buf, 1024, vmstatfp); i++) {
+		if(strstr(buf, "pgpgin")) pgpgin_l = i;
+		else if(strstr(buf, "pgpgout")) pgpgout_l = i;
+		else if(strstr(buf, "pswpin")) pswpin_l = i;
+		else if(strstr(buf, "pswpout")) pswpout_l = i;
 	}
 
 	while(1) {
@@ -445,8 +453,7 @@ void DrawStuff( void )
 
 	statfp = freopen("/proc/stat", "r", statfp);
 
-
-	for(i = 0, ents = 0; ents < 5 && fgets(buf, 1024, statfp); i++) {
+	for(i = 0, ents = 0; ents < 3 && fgets(buf, 1024, statfp); i++) {
 		if(i == rio_l) {
 			tok = strtok(buf, seps);
 
@@ -476,13 +483,6 @@ void DrawStuff( void )
 
 			io += atoi(tok);
 			tok = strtok(NULL, seps);
-			ents++;
-		} else if(i == page_l) {
-			sscanf(buf, "%*s %ld %ld", &pageins, &pageouts);
-			ents++;
-		} else if(i == swap_l) {
-			sscanf(buf, "%*s %ld %ld",
-				&swapins, &swapouts);
 			ents++;
 		} else if(i == intr_l) {
 			sscanf(	buf,
@@ -514,6 +514,23 @@ void DrawStuff( void )
 		}
 	}
 
+	vmstatfp = freopen("/proc/vmstat", "r", vmstatfp);
+
+	for(i = 0, ents = 0; ents < 4 && fgets(buf, 1024, vmstatfp); i++) {
+		if(i == pgpgin_l) {
+			sscanf(buf, "%*s %ld", &pageins);
+			ents++;
+		} else if(i == pgpgout_l) {
+			sscanf(buf, "%*s %ld", &pageouts);
+			ents++;
+		} else if(i == pswpin_l) {
+			sscanf(buf, "%*s %ld", &swapins);
+			ents++;
+		} else if(i == pswpout_l) {
+			sscanf(buf, "%*s %ld", &swapouts);
+			ents++;
+		}
+	}
 
 	/* ------------------ IO bar ------------------ */
 	if(io_max == 0) io_max = io;
