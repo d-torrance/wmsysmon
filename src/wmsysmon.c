@@ -85,8 +85,7 @@ long	start_uptime = 0;
 int	counter = 0;
 int	MemTotal_l, MemFree_l, SwapTotal_l, SwapFree_l; /* lines in /proc/meminfo */
 int	intr_l;	/* line in /proc/stat "intr" is on */
-int	rio_l; /* line in /proc/stat "disk_rio" is on */
-int	wio_l; /* line in /proc/stat "disk_wio" is on */
+int	sda_l; /* line in /proc/diskstats */
 int	pgpgin_l, pgpgout_l, pswpin_l, pswpout_l; /* lines in /proc/vmstat */
 
 long	io_max;
@@ -117,6 +116,7 @@ char	buf[1024];
 FILE	*statfp;
 FILE	*memfp;
 FILE	*vmstatfp;
+FILE	*diskstatsfp;
 
 int	update_rate = 50;
 
@@ -240,9 +240,11 @@ void wmsysmon_routine(int argc, char **argv)
 	statfp = fopen("/proc/stat", "r");
 	memfp = fopen("/proc/meminfo", "r");
 	vmstatfp = fopen("/proc/vmstat", "r");
+	diskstatsfp = fopen("/proc/diskstats", "r");
 
-	/* here we find tags in /proc/stat, /proc/meminfo, & /proc/vmstat and
-	 * note their lines, for faster lookup throughout execution.
+	/* here we find tags in /proc/stat, /proc/meminfo, /proc/vmstat, &
+	 * /proc/diskstats and note their lines, for faster lookup throughout
+	 * execution.
 	 */
 
 	/* /proc/meminfo */
@@ -255,9 +257,7 @@ void wmsysmon_routine(int argc, char **argv)
 
 	/* /proc/stat */
 	for(i = 0; fgets(buf, 1024, statfp); i++) {
-		if(strstr(buf, "disk_wio")) wio_l = i;
-		else if(strstr(buf, "disk_rio")) rio_l = i;
-		else if(strstr(buf, "intr")) intr_l = i;
+		if(strstr(buf, "intr")) intr_l = i;
 	}
 
 	/* /proc/vmstat */
@@ -266,6 +266,11 @@ void wmsysmon_routine(int argc, char **argv)
 		else if(strstr(buf, "pgpgout")) pgpgout_l = i;
 		else if(strstr(buf, "pswpin")) pswpin_l = i;
 		else if(strstr(buf, "pswpout")) pswpout_l = i;
+	}
+
+	/* /proc/diskstats */
+	for(i = 0; fgets(buf, 1024, diskstatsfp); i++) {
+		if(strstr(buf, "sda ")) sda_l = i;
 	}
 
 	while(1) {
@@ -434,8 +439,6 @@ void DrawStuff( void )
     	static int	int_lites[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 #endif
 	static int	pagein_lite = 0, pageout_lite = 0, swapin_lite = 0, swapout_lite = 0;
-    	static char	*tok;
-	static char	seps[] = {" "};
 	static int	i, ents;
 
 	static long	io;
@@ -453,38 +456,8 @@ void DrawStuff( void )
 
 	statfp = freopen("/proc/stat", "r", statfp);
 
-	for(i = 0, ents = 0; ents < 3 && fgets(buf, 1024, statfp); i++) {
-		if(i == rio_l) {
-			tok = strtok(buf, seps);
-
-			io += atoi(tok);
-			tok = strtok(NULL, seps);
-
-			io += atoi(tok);
-			tok = strtok(NULL, seps);
-
-			io += atoi(tok);
-			tok = strtok(NULL, seps);
-
-			io += atoi(tok);
-			tok = strtok(NULL, seps);
-			ents++;
-		} else if(i == wio_l) {
-			tok = strtok(buf, seps);
-
-			io += atoi(tok);
-			tok = strtok(NULL, seps);
-
-			io += atoi(tok);
-			tok = strtok(NULL, seps);
-
-			io += atoi(tok);
-			tok = strtok(NULL, seps);
-
-			io += atoi(tok);
-			tok = strtok(NULL, seps);
-			ents++;
-		} else if(i == intr_l) {
+	for(i = 0, ents = 0; ents < 1 && fgets(buf, 1024, statfp); i++) {
+		if(i == intr_l) {
 			sscanf(	buf,
 	#ifdef HI_INTS
 				"%*s %*d %ld %ld %ld %ld %ld"
@@ -528,6 +501,19 @@ void DrawStuff( void )
 			ents++;
 		} else if(i == pswpout_l) {
 			sscanf(buf, "%*s %ld", &swapouts);
+			ents++;
+		}
+	}
+
+	diskstatsfp = freopen("/proc/diskstats", "r", diskstatsfp);
+
+	for(i = 0, ents = 0; ents < 1 && fgets(buf, 1024, diskstatsfp); i++) {
+		if(i == sda_l) {
+			long rio, wio;
+
+			sscanf(buf, "%*d %*d %*s %ld %*d %*d %*d %ld",
+			       &rio, &wio);
+			io = rio + wio;
 			ents++;
 		}
 	}
